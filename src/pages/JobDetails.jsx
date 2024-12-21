@@ -56,7 +56,7 @@ const JobDetails = () => {
     // 4. sellers deadline and byers deadline validation
     if (compareAsc(new Date(startDate), new Date(deadline)) === 1) return toast.error('Offer a date within deadline')
     
-        const bidData={price,comment,email,deadline,jobId}
+        const bidData={price,comment,email,deadline:startDate,jobId,category,title,status:'pending',buyer:buyer?.email}
     try {
       // 1. create a post request
       await axios.post(`${import.meta.env.VITE_API_URL}/add-bid`, bidData)
@@ -67,7 +67,7 @@ const JobDetails = () => {
       navigate('/my-bids')
     } catch (error) {
       console.log(error);
-      toast.error(error.message)
+      toast.error(error?.response?.data)
 }
     // console.table(bidData)
   }
