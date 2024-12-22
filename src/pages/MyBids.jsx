@@ -136,7 +136,7 @@ const {user}=useContext(AuthContext)
                       <div
                           className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2
                           
-                            ${bid?.status === 'Pending' && 'bg-yellow-100/60 text-yellow-500'}
+                            ${bid?.status === 'pending' && 'bg-yellow-100/60 text-yellow-500'}
                              ${bid?.status === 'Completed' && 'bg-green-100/60 text-green-500'}
                              ${bid?.status === 'in Progress' && 'bg-blue-100/60 text-blue-500'}
                              ${bid?.status === 'Rejected' && 'bg-red-100/60 text-red-500'}
@@ -145,7 +145,7 @@ const {user}=useContext(AuthContext)
                       >
                         <span
                             className={`h-1.5 w-1.5 rounded-full 
-                             ${bid?.status === 'Pending' && 'bg-yellow-500'}
+                             ${bid?.status === 'pending' && 'bg-yellow-500'}
                              ${bid?.status === 'Completed' && 'bg-green-500'}
                              ${bid?.status === 'in Progress' && 'bg-blue-500'}
                              ${bid?.status === 'Rejected' && 'bg-red-500'}
@@ -154,7 +154,7 @@ const {user}=useContext(AuthContext)
                         ></span>
                           <h2 className={`text-sm font-normal
                             
-                            ${bid?.status === 'Pending' && 'text-yellow-500'}
+                            ${bid?.status === 'pending' && 'text-yellow-500'}
                              ${bid?.status === 'Completed' && 'text-green-500'}
                              ${bid?.status === 'in Progress' && 'text-blue-500'}
                              ${bid?.status === 'Rejected' && 'text-red-500'}

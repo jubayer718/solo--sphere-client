@@ -5,15 +5,24 @@ import axios from 'axios'
 
 const AllJobs = () => {
   const [jobs, setJobs] = useState([])
-  useEffect(() => {
-    fetchAllJobs()
-  }, [])
 
-  const fetchAllJobs = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/jobs`)
+  // filter jobs data by category
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('');
+  const [search, setSearch] = useState('');
+  useEffect(() => {
+    const fetchAllJobs = async () => {
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/all-jobs?filter=${filter}&search=${search}&sort=${sort}`)
     setJobs(data)
   }
-  console.log(jobs)
+    fetchAllJobs()
+  }, [filter,search,sort])
+
+  const handleReset = () => {
+    setFilter('');
+      setSort('');
+      setSearch('');
+  }
   return (
     <div className='container px-6 py-10 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between'>
       <div>
@@ -22,7 +31,9 @@ const AllJobs = () => {
             <select
               name='category'
               id='category'
+              value={filter}
               className='border p-4 rounded-lg'
+              onChange={e=>setFilter(e.target.value)}
             >
               <option value=''>Filter By Category</option>
               <option value='Web Development'>Web Development</option>
@@ -37,6 +48,8 @@ const AllJobs = () => {
                 className='px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent'
                 type='text'
                 name='search'
+                value={search}
+                onChange={e=>setSearch(e.target.value)}
                 placeholder='Enter Job Title'
                 aria-label='Enter Job Title'
               />
@@ -50,14 +63,16 @@ const AllJobs = () => {
             <select
               name='category'
               id='category'
+              value={sort}
               className='border p-4 rounded-md'
+              onChange={e=>setSort(e.target.value)}
             >
               <option value=''>Sort By Deadline</option>
               <option value='dsc'>Descending Order</option>
               <option value='asc'>Ascending Order</option>
             </select>
           </div>
-          <button className='btn'>Reset</button>
+          <button onClick={handleReset} className='btn'>Reset</button>
         </div>
         <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {jobs?.map?.(job => (

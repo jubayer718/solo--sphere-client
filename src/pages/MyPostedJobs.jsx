@@ -4,7 +4,10 @@ import { AuthContext } from '../providers/AuthProvider'
 import axios from 'axios'
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
+import useAxiosSecure from '../hooks/useAxiosSecure'
+// import { axiosSecure } from '../hooks/useAxiosSecure'
 const MyPostedJobs = () => {
+  const axiosSecure = useAxiosSecure()
   const { user } = useContext(AuthContext)
   const [jobs, setJobs] = useState([])
   useEffect(() => {
@@ -12,8 +15,7 @@ const MyPostedJobs = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
   const fetchAllJobs = async () => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/jobs/${user?.email}`
+    const { data } = await axiosSecure.get( `/jobs/${user?.email}`
     )
     setJobs(data)
   }
